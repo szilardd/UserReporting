@@ -20,9 +20,9 @@ namespace UserReporting.ReportGenerator
 
             using (var ms = new MemoryStream())
             {
-                PdfDocument pdf = TheArtOfDev.HtmlRenderer.PdfSharp.PdfGenerator.GeneratePdf(content, PageSize.A4);
-                pdf.Save(ms);
-                result = ms.ToArray();
+                //PdfDocument pdf = TheArtOfDev.HtmlRenderer.PdfSharp.PdfGenerator.GeneratePdf(content, PageSize.A4);
+                //pdf.Save(ms);
+                //result = ms.ToArray();
             }
             return result;
         }
