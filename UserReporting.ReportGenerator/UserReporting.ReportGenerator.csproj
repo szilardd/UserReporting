@@ -7,7 +7,7 @@
     <PackageReference Include="ImageResizer" Version="4.2.5" />
     <PackageReference Include="ImageResizer.Plugins.PdfRenderer" Version="4.2.5" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.13" />
-    <PackageReference Include="PDFsharp-wpf" Version="1.50.5147" />
+    <PackageReference Include="PdfSharp" Version="1.50.5147" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UserReporting.Shared\UserReporting.Shared.csproj" />
