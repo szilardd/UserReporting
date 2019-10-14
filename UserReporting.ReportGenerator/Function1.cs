@@ -23,15 +23,15 @@ namespace UserReporting.ReportGenerator
         private static readonly string _MainStorageAccountName = Environment.GetEnvironmentVariable("MainStorageAccountName");
         private static readonly string _MainStorageAccountKey = Environment.GetEnvironmentVariable("MainStorageAccountKey");
         [FunctionName("Function1")]
-        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequestMessage req, TraceWriter log)
+        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequestMessage req, TraceWriter log)
         {
             log.Info("C# HTTP trigger function processed a request.");
 
             // Get request body
             dynamic data = await req.Content.ReadAsAsync<object>();
-            var tenantId = data.TenantId;
-            var tenancyName = data.TenancyName;
-            var assetFilename = data.AssetFilename;
+            var tenantId = (long)data.TenantId;
+            var tenancyName = data.TenancyName.ToString();
+            var assetFilename = data.AssetFilename.ToString();
 
             await Convert(tenantId, tenancyName, assetFilename);
 
@@ -53,38 +53,39 @@ namespace UserReporting.ReportGenerator
 
             using (var blobStream = await inputBlob.OpenReadAsync())
             {
-                XImage image = XImage.FromStream(blobStream);
-
-                page.Width = image.PointWidth;
-                page.Height = image.PointHeight;
-
-                gfx.DrawImage(image, 0, 0);
-
-                using (var stream = new MemoryStream())
+                using (XImage image = XImage.FromStream(blobStream))
                 {
-                    s_document.Save(stream, false);
+                    page.Width = image.PointWidth;
+                    page.Height = image.PointHeight;
 
-                    var thumbnailIns = new Instructions
+                    gfx.DrawImage(image, 0, 0);
+
+                    using (var stream = new MemoryStream())
                     {
-                        Width = 640,
-                        Height = 360,
-                        Mode = FitMode.Max,
-                        Page = 1,
-                        Format = "jpg"
-                    };
+                        s_document.Save(stream, false);
 
-                    var config = BuildApplicationResizerConfig();
-
-                    using (var thumbnailStream = new MemoryStream())
-                    {
-                        var thumbnailJob = new ImageJob(stream, thumbnailStream, thumbnailIns);
-                        config.Build(thumbnailJob);
-
-                        thumbnailStream.Seek(0, SeekOrigin.Begin);
-
-                        using (var fileStream = File.Create(@"D:\home\site\wwwroot\thumb.jpg"))
+                        var thumbnailIns = new Instructions
                         {
-                            thumbnailStream.CopyTo(fileStream);
+                            Width = 640,
+                            Height = 360,
+                            Mode = FitMode.Max,
+                            Page = 1,
+                            Format = "jpg"
+                        };
+
+                        var config = BuildApplicationResizerConfig();
+
+                        using (var thumbnailStream = new MemoryStream())
+                        {
+                            var thumbnailJob = new ImageJob(stream, thumbnailStream, thumbnailIns);
+                            config.Build(thumbnailJob);
+
+                            thumbnailStream.Seek(0, SeekOrigin.Begin);
+
+                            using (var fileStream = File.Create(@"D:\home\site\wwwroot\thumb2.jpg"))
+                            {
+                                thumbnailStream.CopyTo(fileStream);
+                            }
                         }
                     }
                 }
