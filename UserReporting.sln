@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2042
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserReporting.Web", "UserReporting.Web\UserReporting.Web.csproj", "{8A320D0B-AE8E-4258-A0DF-F8FDAFBB68DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserReporting.ReportGenerator", "UserReporting.ReportGenerator\UserReporting.ReportGenerator.csproj", "{2984CBAD-D2E3-4CE1-B9E3-D31124067F40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserReporting.ReportGenerator", "UserReporting.ReportGenerator\UserReporting.ReportGenerator.csproj", "{2984CBAD-D2E3-4CE1-B9E3-D31124067F40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserReporting.Shared", "UserReporting.Shared\UserReporting.Shared.csproj", "{41E663CF-49A7-4AB9-B8BB-385FB6686B4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserReporting.Shared", "UserReporting.Shared\UserReporting.Shared.csproj", "{41E663CF-49A7-4AB9-B8BB-385FB6686B4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
